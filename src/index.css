@@ -1,0 +1,47 @@
+:root {
+  --bg: #fffaf2;
+  --text: #3a2e4d;
+  --card-bg: #fff;
+  --shadow: rgba(0, 0, 0, 0.12) 0 6px 16px -4px;
+  color-scheme: light dark;
+  font: 18px/145% 'Comic Sans MS', 'Segoe UI Rounded', system-ui, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #241f2e;
+    --text: #f3ecff;
+    --card-bg: #322a45;
+    --shadow: rgba(0, 0, 0, 0.4) 0 6px 16px -4px;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  min-height: 100svh;
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+h1,
+h2 {
+  margin: 0 0 8px;
+}
