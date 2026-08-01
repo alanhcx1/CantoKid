@@ -1,15 +1,20 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useSpeak } from '../hooks/useSpeak'
 import { useRecorder } from '../hooks/useRecorder'
 
 export default function Flashcard({ word }) {
   const { speak, unsupported } = useSpeak()
   const { status, audioUrl, error, start, stop, reset } = useRecorder()
+  const playbackRef = useRef(null)
 
   useEffect(() => {
     reset()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [word.id])
+
+  useEffect(() => {
+    if (audioUrl) playbackRef.current?.play()
+  }, [audioUrl])
 
   return (
     <div className="flashcard">
@@ -42,7 +47,7 @@ export default function Flashcard({ word }) {
             <button className="big-button" onClick={() => speak(word.characters)}>
               🔊 Native
             </button>
-            <audio src={audioUrl} controls />
+            <audio ref={playbackRef} src={audioUrl} controls />
             <button className="small-button" onClick={reset}>
               Try again
             </button>
