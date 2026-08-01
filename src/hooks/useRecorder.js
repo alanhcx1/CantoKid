@@ -26,7 +26,10 @@ export function useRecorder() {
         if (e.data.size > 0) chunksRef.current.push(e.data)
       }
       recorder.onstop = () => {
-        const blob = new Blob(chunksRef.current, { type: 'audio/webm' })
+        // Use the format the browser actually recorded in (Safari records
+        // audio/mp4, Chrome/Firefox record audio/webm) — hardcoding one
+        // mislabels the blob on the other and the <audio> element can't play it.
+        const blob = new Blob(chunksRef.current, { type: recorder.mimeType || 'audio/webm' })
         setAudioUrl((prev) => {
           if (prev) URL.revokeObjectURL(prev)
           return URL.createObjectURL(blob)

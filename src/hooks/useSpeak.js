@@ -13,18 +13,11 @@ function pickVoice(voices) {
 
 export function useSpeak() {
   const [voice, setVoice] = useState(null)
-  const [checked, setChecked] = useState(false)
+  const [unsupported, setUnsupported] = useState(false)
 
   useEffect(() => {
-    if (!('speechSynthesis' in window)) {
-      setChecked(true)
-      return
-    }
-    const load = () => {
-      const found = pickVoice(window.speechSynthesis.getVoices())
-      setVoice(found)
-      setChecked(true)
-    }
+    if (!('speechSynthesis' in window)) return
+    const load = () => setVoice(pickVoice(window.speechSynthesis.getVoices()))
     load()
     window.speechSynthesis.addEventListener('voiceschanged', load)
     return () => window.speechSynthesis.removeEventListener('voiceschanged', load)
@@ -32,16 +25,24 @@ export function useSpeak() {
 
   const speak = useCallback(
     (text) => {
-      if (!('speechSynthesis' in window)) return
+      if (!('speechSynthesis' in window)) {
+        setUnsupported(true)
+        return
+      }
       window.speechSynthesis.cancel()
       const utterance = new SpeechSynthesisUtterance(text)
       utterance.lang = CANTONESE_LANG
       utterance.rate = 0.85
       if (voice) utterance.voice = voice
+      // Some browsers (notably iOS Safari) don't list a zh-HK voice via
+      // getVoices() yet still synthesize it fine, so only warn on an actual
+      // failure rather than pre-emptively guessing from the voice list.
+      utterance.onerror = () => setUnsupported(true)
+      utterance.onstart = () => setUnsupported(false)
       window.speechSynthesis.speak(utterance)
     },
     [voice],
   )
 
-  return { speak, hasVoice: Boolean(voice), checked }
+  return { speak, unsupported }
 }

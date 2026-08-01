@@ -3,7 +3,7 @@ import { useSpeak } from '../hooks/useSpeak'
 import { useRecorder } from '../hooks/useRecorder'
 
 export default function Flashcard({ word }) {
-  const { speak, hasVoice, checked } = useSpeak()
+  const { speak, unsupported } = useSpeak()
   const { status, audioUrl, error, start, stop, reset } = useRecorder()
 
   useEffect(() => {
@@ -21,10 +21,10 @@ export default function Flashcard({ word }) {
       <button className="big-button listen-button" onClick={() => speak(word.characters)}>
         🔊 Listen
       </button>
-      {checked && !hasVoice && (
+      {unsupported && (
         <p className="hint">
-          No Cantonese voice found on this device — try Chrome on Android, or check your browser's
-          language/voice settings.
+          Couldn't play Cantonese audio on this device/browser — try Chrome on Android, or check
+          your browser's language/voice settings.
         </p>
       )}
 
