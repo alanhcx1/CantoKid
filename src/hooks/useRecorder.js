@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState } from 'react'
+import { markHasRecorded } from '../content/progress'
 
 export function useRecorder() {
   const [status, setStatus] = useState('idle') // idle | recording | recorded | error
@@ -31,6 +32,7 @@ export function useRecorder() {
           return URL.createObjectURL(blob)
         })
         setStatus('recorded')
+        markHasRecorded()
         streamRef.current?.getTracks().forEach((t) => t.stop())
       }
       recorder.start()

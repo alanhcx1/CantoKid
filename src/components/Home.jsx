@@ -10,12 +10,17 @@ const GREETINGS = [
   "You're a Cantonese champion!",
 ]
 
-export default function Home({ progress, onSelectLesson }) {
+export default function Home({ progress, onSelectLesson, onShowBadges }) {
   const stage = mascotStage(totalStars(progress))
 
   return (
     <div className="screen home">
-      <h1 className="app-title">🀄 CantoKid</h1>
+      <div className="home-header">
+        <h1 className="app-title">🀄 CantoKid</h1>
+        <button className="badges-button" onClick={onShowBadges}>
+          🏅 Badges
+        </button>
+      </div>
 
       <div className="mascot-intro">
         <Mascot mood={stage === 3 ? 'excited' : 'happy'} stage={stage} size={110} />

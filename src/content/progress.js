@@ -1,4 +1,5 @@
 const STORAGE_KEY = 'cantokid_progress'
+const RECORDED_KEY = 'cantokid_has_recorded'
 
 export function loadProgress() {
   try {
@@ -26,4 +27,12 @@ export function mascotStage(stars) {
   if (stars >= 4) return 2
   if (stars >= 1) return 1
   return 0
+}
+
+export function markHasRecorded() {
+  localStorage.setItem(RECORDED_KEY, 'true')
+}
+
+export function hasRecorded() {
+  return localStorage.getItem(RECORDED_KEY) === 'true'
 }

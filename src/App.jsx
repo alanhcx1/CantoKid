@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import BadgeShelf from './components/BadgeShelf'
 import Home from './components/Home'
 import Lesson from './components/Lesson'
 import Quiz from './components/Quiz'
@@ -28,7 +29,17 @@ function App() {
     return <Quiz lessonId={view.lessonId} onFinish={goHome} />
   }
 
-  return <Home progress={progress} onSelectLesson={(lessonId) => setView({ screen: 'lesson', lessonId })} />
+  if (view.screen === 'badges') {
+    return <BadgeShelf progress={progress} onBack={goHome} />
+  }
+
+  return (
+    <Home
+      progress={progress}
+      onSelectLesson={(lessonId) => setView({ screen: 'lesson', lessonId })}
+      onShowBadges={() => setView({ screen: 'badges' })}
+    />
+  )
 }
 
 export default App
