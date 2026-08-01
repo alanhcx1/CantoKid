@@ -2,6 +2,14 @@ import { useMemo, useState } from 'react'
 import { getLesson } from '../content/lessons'
 import { saveLessonResult } from '../content/progress'
 import { useSpeak } from '../hooks/useSpeak'
+import Mascot from './Mascot'
+
+function moodForScore(correct, total) {
+  const ratio = correct / total
+  if (ratio >= 1) return 'excited'
+  if (ratio >= 0.5) return 'happy'
+  return 'sad'
+}
 
 function shuffle(array) {
   const copy = [...array]
@@ -51,7 +59,8 @@ export default function Quiz({ lessonId, onFinish }) {
     const stars = Math.round((correctCount / questions.length) * 3)
     return (
       <div className="screen quiz" style={{ '--lesson-color': lesson.color }}>
-        <h2>Great job!</h2>
+        <Mascot mood={moodForScore(correctCount, questions.length)} size={110} />
+        <h2>{stars > 0 ? 'Great job!' : 'Nice try!'}</h2>
         <p className="results-score">
           {correctCount} / {questions.length} correct
         </p>
