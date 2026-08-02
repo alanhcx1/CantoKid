@@ -1,9 +1,16 @@
-const STORAGE_KEY = 'cantokid_progress'
-const RECORDED_KEY = 'cantokid_has_recorded'
+import { getActiveProfileId } from './profiles'
+
+function progressKey() {
+  return `cantokid_progress_${getActiveProfileId()}`
+}
+
+function recordedKey() {
+  return `cantokid_has_recorded_${getActiveProfileId()}`
+}
 
 export function loadProgress() {
   try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}
+    return JSON.parse(localStorage.getItem(progressKey())) || {}
   } catch {
     return {}
   }
@@ -13,7 +20,7 @@ export function saveLessonResult(lessonId, stars) {
   const progress = loadProgress()
   const prevStars = progress[lessonId]?.stars || 0
   progress[lessonId] = { stars: Math.max(prevStars, stars), completed: true }
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(progress))
+  localStorage.setItem(progressKey(), JSON.stringify(progress))
   return progress
 }
 
@@ -30,9 +37,9 @@ export function mascotStage(stars) {
 }
 
 export function markHasRecorded() {
-  localStorage.setItem(RECORDED_KEY, 'true')
+  localStorage.setItem(recordedKey(), 'true')
 }
 
 export function hasRecorded() {
-  return localStorage.getItem(RECORDED_KEY) === 'true'
+  return localStorage.getItem(recordedKey()) === 'true'
 }

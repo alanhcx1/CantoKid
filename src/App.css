@@ -30,6 +30,24 @@
   font-size: 14px;
   box-shadow: var(--shadow);
 }
+.profile-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--card-bg);
+  border: 2px solid #d8d3e0;
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.profile-chip-switch {
+  opacity: 0.6;
+  font-weight: normal;
+}
+
 .mascot-intro {
   display: flex;
   flex-direction: column;
@@ -361,4 +379,99 @@
 .badge-description {
   font-size: 12px;
   opacity: 0.75;
+}
+
+/* --- Profiles --- */
+.profiles h2 {
+  margin-bottom: 16px;
+}
+
+.profile-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.profile-card-wrap {
+  position: relative;
+}
+
+.profile-card {
+  width: 100%;
+  background: var(--card-bg);
+  border: 3px solid #d8d3e0;
+  border-radius: 18px;
+  padding: 16px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  box-shadow: var(--shadow);
+}
+
+.profile-avatar {
+  font-size: 36px;
+  line-height: 1;
+}
+
+.profile-name {
+  font-weight: bold;
+  font-size: 14px;
+  word-break: break-word;
+}
+
+.profile-remove {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #d1425c;
+  color: white;
+  border: 2px solid var(--bg);
+  font-size: 13px;
+  line-height: 1;
+  padding: 0;
+}
+
+.profile-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-name-input {
+  width: 100%;
+  font-size: 18px;
+  padding: 14px 16px;
+  border-radius: 999px;
+  border: 2px solid #d8d3e0;
+  background: var(--card-bg);
+  color: inherit;
+  text-align: center;
+}
+
+.avatar-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+
+.avatar-option {
+  font-size: 24px;
+  padding: 8px 0;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  background: var(--card-bg);
+}
+
+.avatar-option.selected {
+  border-color: #7c5cff;
+  background: rgba(124, 92, 255, 0.15);
 }

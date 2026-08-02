@@ -10,7 +10,7 @@ const GREETINGS = [
   "You're a Cantonese champion!",
 ]
 
-export default function Home({ progress, onSelectLesson, onShowBadges }) {
+export default function Home({ profile, progress, onSelectLesson, onShowBadges, onSwitchProfile }) {
   const stage = mascotStage(totalStars(progress))
 
   return (
@@ -21,6 +21,12 @@ export default function Home({ progress, onSelectLesson, onShowBadges }) {
           🏅 Badges
         </button>
       </div>
+
+      {profile && (
+        <button className="profile-chip" onClick={onSwitchProfile}>
+          <span>{profile.avatar}</span> {profile.name} <span className="profile-chip-switch">Switch</span>
+        </button>
+      )}
 
       <div className="mascot-intro">
         <Mascot mood={stage === 3 ? 'excited' : 'happy'} stage={stage} size={110} />
