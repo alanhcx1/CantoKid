@@ -236,6 +236,13 @@
   width: 100%;
 }
 
+.playback-label {
+  font-size: 14px;
+  font-weight: bold;
+  opacity: 0.75;
+  margin: 0;
+}
+
 .record-button.recording {
   background: #d1425c;
   animation: pulse 1s infinite;

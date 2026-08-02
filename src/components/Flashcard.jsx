@@ -44,9 +44,7 @@ export default function Flashcard({ word }) {
           </button>
         ) : (
           <div className="playback-row">
-            <button className="big-button" onClick={() => speak(word.characters)}>
-              🔊 Native
-            </button>
+            <p className="playback-label">Your recording:</p>
             <audio ref={playbackRef} src={audioUrl} controls />
             <button className="small-button" onClick={reset}>
               Try again
